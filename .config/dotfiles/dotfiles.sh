@@ -8,10 +8,10 @@ _dot config --local status.showUntrackedFiles no 2>/dev/null
 
 dot() {
     case $1 in
-        # subtree | tree)
-        #     shift
-        #     dot_tree "$@"
-        #     ;;
+        tree)
+            shift
+            dot_tree "$@"
+            ;;
         list | ls)
             dot_list
             ;;
@@ -21,20 +21,23 @@ dot() {
     esac
 }
 
+declare -A DOT_SUBTREES
+DOT_SUBTREES[.config/nvim]="git@github.com:red4mber/nvim-config.git"
+
 # # Naaaaah bro
 # # Fuck subtrees fr fr
 
-# dot_tree() {
-#     local prefix=$2
-#     local repo="$(dirname $DOTFILES_REPO)/$(basename $prefix)-dotfiles.git"
-#     local branch=${3:-main}
-#     if 
-#     if [[ -z "$prefix" || -z "$repo" ]]; then
-#         echo "Usage: dot tree $1 <prefix> [branch]"
-#         return 1
-#     fi
-#     _dot subtree $1 --prefix="$prefix" "$repo" "$branch" 
-# }
+dot_tree() {
+    local prefix=$2
+    local repo="$(dirname $DOTFILES_REPO)/$(basename $prefix)-dotfiles.git"
+    local branch=${3:-main}
+    if 
+    if [[ -z "$prefix" || -z "$repo" ]]; then
+        echo "Usage: dot tree $1 <prefix> [branch]"
+        return 1
+    fi
+    _dot subtree $1 --prefix="$prefix" "$repo" "$branch" 
+}
 dot_list() {
     (cd "$HOME"
     for i in $(_dot ls-files); do

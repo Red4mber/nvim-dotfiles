@@ -8,6 +8,7 @@ source $ZSH/oh-my-zsh.sh
 
 plugins=(zsh-completions git)
 
+setopt completealiases
 
 # Na Nananana Na Nananana
 alias man='batman' #!!!
