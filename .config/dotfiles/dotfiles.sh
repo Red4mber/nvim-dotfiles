@@ -4,21 +4,21 @@
 DOTFILES_DIR="$HOME/.config/dotfiles/git/"
 DOTFILES_REPO=$(cd ${DOTFILES_DIR} && git config --get remote.origin.url)
 
-alias dotfiles="git --git-dir=${DOTFILES_DIR} --work-tree=${HOME}"
+alias dot="git --git-dir=${DOTFILES_DIR} --work-tree=${HOME}"
 
-dotfiles config --local status.showUntrackedFiles no 2>/dev/null
+dot config --local status.showUntrackedFiles no 2>/dev/null
 
 # === dot: pretty status (thanks mitxela ❤️) ===
-dot() {
+dot-list() {
   if [[ "$#" -eq 0 ]]; then
     (cd "$HOME"
-      for i in $(dotfiles ls-files); do
-        echo -n "$(dotfiles -c color.status=always status "$i" -s | sed "s#$i##")"
-        echo -e "¬/$i¬\e[0;33m$(dotfiles -c color.ui=always log -1 --format="%s" -- "$i")\e[0m"
+      for i in $(dotls-files); do
+        echo -n "$(dot -c color.status=always status "$i" -s | sed "s#$i##")"
+        echo -e "¬/$i¬\e[0;33m$(dot -c color.ui=always log -1 --format="%s" -- "$i")\e[0m"
       done
     ) | column -t --separator=¬ -T 2
   else
-    dotfiles "$@"
+    dot "$@"
   fi
 }
 
@@ -33,7 +33,7 @@ subtree_add() {
   fi
 
   echo "➕ Adding subtree: $prefix ← $repo ($branch)"
-  dotfiles subtree add --prefix="$prefix" "$repo" "$branch" --squash
+  dot subtree add --prefix="$prefix" "$repo" "$branch" --squash
 }
 
 # === Subtree: add a new config repo into your dotfiles ===
@@ -48,7 +48,7 @@ dot_add_subtree() {
   fi
 
   echo "➕ Adding subtree: $prefix ← $repo ($branch)"
-  dotfiles subtree add --prefix="$prefix" "$repo" "$branch" --squash
+  dot subtree add --prefix="$prefix" "$repo" "$branch" --squash
 }
 
 # === Subtree: pull (update) from upstream ===
@@ -63,7 +63,7 @@ dot_pull_subtree() {
   fi
 
   echo "🔄 Pulling subtree: $prefix ← $repo ($branch)"
-  dotfiles subtree pull --prefix="$prefix" "$repo" "$branch" --squash
+  dot subtree pull --prefix="$prefix" "$repo" "$branch" --squash
 }
 
 # === Subtree: push changes back upstream ===
@@ -78,6 +78,6 @@ dot_push_subtree() {
   fi
 
   echo "📤 Pushing subtree: $prefix → $repo ($branch)"
-  dotfiles subtree push --prefix="$prefix" "$repo" "$branch"
+  dot subtree push --prefix="$prefix" "$repo" "$branch"
 }
 
