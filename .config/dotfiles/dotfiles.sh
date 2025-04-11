@@ -21,23 +21,27 @@ dot() {
     esac
 }
 
-declare -A DOT_SUBTREES
-DOT_SUBTREES[.config/nvim]="git@github.com:red4mber/nvim-config.git"
-
-# # Naaaaah bro
-# # Fuck subtrees fr fr
-
 dot_tree() {
-    local prefix=$2
-    local repo="$(dirname $DOTFILES_REPO)/$(basename $prefix)-dotfiles.git"
-    local branch=${3:-main}
-    if 
-    if [[ -z "$prefix" || -z "$repo" ]]; then
-        echo "Usage: dot tree $1 <prefix> [branch]"
+    if [ $# -ge 2 ]; then
+        local command="$1"
+        local prefix="$2"
+        local repo="$(dirname $DOTFILES_REPO)/$(basename $prefix)-dotfiles.git"
+        others=""
+        while shift && [ -n "$2" ]; do
+            others="${others} $2"
+        done 
+        # local branch=${3:-main}
+        local branch="main"
+    else 
+        echo "Usage: dot tree $1 <prefix> [other arguments]" #[branch]"
         return 1
     fi
-    _dot subtree $1 --prefix="$prefix" "$repo" "$branch" 
+    # echo "_dot subtree $command --prefix=$prefix $repo $branch $others[@]" # debug 
+    # echo _dot subtree "${command}" --prefix="${prefix}" \""${repo}"\" \""${branch}"\" "${others[@]}"  
+    _dot subtree "${command}" --prefix="${prefix}" \""${repo}"\" \""${branch}"\" ${others[@]}  
 }
+
+
 dot_list() {
     (cd "$HOME"
     for i in $(_dot ls-files); do

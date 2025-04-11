@@ -42,3 +42,12 @@ source "${HOME}/.config/dotfiles/dotfiles.sh"
 # Initialize zsh completions (added by deno install script)
 autoload -Uz compinit
 compinit
+
+
+
+declare -A DOT_SUBTREES
+DOT_SUBTREES[.config/nvim]="git@github.com:red4mber/nvim-config.git"
+ 
+
+
+
