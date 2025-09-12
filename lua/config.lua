@@ -22,7 +22,7 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.virtualedit = "block"
 
 -- Disable line wraps
-vim.opt.wrap = false
+vim.opt.wraps = false
 
 -- Better colors 
 vim.opt.termguicolors = true
@@ -32,7 +32,3 @@ vim.opt.ignorecase = true
 
 -- Preview result of macros and substitutions
 vim.opt.inccommand = "split"
-
--- Shows diagnostics inline 
-vim.diagnostic.config({ virtual_text = true })
-
