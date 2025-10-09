@@ -5,9 +5,10 @@ return {
         dependencies = {
             "folke/lazydev.nvim"
         },
-        config = function()
-            require('lspconfig').lua_ls.setup({})
-        end
+        init = function()
+		    local lspConfigPath = require("lazy.core.config").options.root .. "/nvim-lspconfig"
+		    vim.opt.runtimepath:prepend(lspConfigPath)
+	    end,
     },
     -- LUA LS Setup 
     {
@@ -38,4 +39,9 @@ return {
                 },
             },
         },
+        {
+            'mrcjkb/rustaceanvim',
+            version = '^6', -- Recommended
+            lazy = false, -- This plugin is already lazy
+        }
     }

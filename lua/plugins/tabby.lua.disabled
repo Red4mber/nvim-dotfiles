@@ -1,0 +1,12 @@
+return {
+    'nanozuki/tabby.nvim',
+    opts = {
+
+    },
+    keys = {
+        { "<leader><left>",     ":tabp<cr>",      desc = "Previous Buffer"    },
+        { "<leader><right>",    ":tabn<cr>",          desc = "Next Buffer"        },
+        { "<C-PageUp>",         ":tabn<cr>",          desc = "Next buffer"        },
+        { "<C-PageDown>",       ":tabp<cr>",      desc = "Previous buffer"    },
+   },
+}

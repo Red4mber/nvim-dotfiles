@@ -1,5 +1,6 @@
 return {
     "nvim-lualine/lualine.nvim",
+    lazy = false,
     config = function()
         -- Eviline config for lualine
         -- Author: shadmansaleh
