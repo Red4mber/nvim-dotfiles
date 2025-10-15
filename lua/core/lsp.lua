@@ -3,7 +3,8 @@ vim.lsp.enable({
     "clangd",
     "rust_analyzer",
     --"rnix",
-    "nil",
+    -- "nil_ls",
+    "nixd",
     "lua_ls",
     "pyright"
 })
